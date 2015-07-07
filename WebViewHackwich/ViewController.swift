@@ -7,17 +7,24 @@
 //
 
 import UIKit
+import SafariServices
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SFSafariViewControllerDelegate{
 
+    @IBOutlet weak var myWebView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func goToWebsite(sender: AnyObject) {
+        let url = NSURL(string: "http://arizona.edu")        
+        let sVC = SFSafariViewController(URL: url!)
+        sVC.delegate = self
+        self.presentViewController(sVC, animated: true, completion: nil)
+    }
+    
+    func safariViewControllerDidFinish(controller: SFSafariViewController){
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 
 
